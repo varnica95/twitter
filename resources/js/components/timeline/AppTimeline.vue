@@ -9,22 +9,19 @@
 </template>
 
 <script>
+    import { mapActions, mapGetters } from 'vuex'
 
-    import AppTweet from "../tweets/AppTweet";
     export default {
-        components: {AppTweet},
-        data() {
-            return {
-                tweets: []
-            }
+        computed: {
+            ...mapGetters({
+                tweets: 'timeline/tweets'
+            })
         },
 
         methods: {
-            async getTweets() {
-                let response = await axios.get('/api/timeline')
-
-                this.tweets = response.data.data
-            }
+            ...mapActions({
+                getTweets: 'timeline/getTweets'
+            })
         },
 
         mounted() {

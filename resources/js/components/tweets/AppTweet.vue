@@ -15,9 +15,7 @@
 </template>
 
 <script>
-    import AppTweetUsername from "./AppTweetUsername";
     export default {
-        components: {AppTweetUsername},
         props: {
             tweet: {
                 required: true,
