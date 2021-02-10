@@ -41,4 +41,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function following()
+    {
+        return $this->belongsToMany(
+            __CLASS__,
+            'followers',
+            'user_id',
+            'following_id'
+        );
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(
+            __CLASS__,
+            'followers',
+            'following_id',
+            'user_id'
+        );
+    }
 }
