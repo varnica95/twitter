@@ -40,6 +40,8 @@
         methods: {
             async submit() {
                 await axios.post('/api/timeline/tweets', this.form)
+
+                this.form.body = ''
             }
         }
     }

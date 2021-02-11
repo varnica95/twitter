@@ -1914,6 +1914,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.post('/api/timeline/tweets', _this.form);
 
               case 2:
+                _this.form.body = '';
+
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -2236,7 +2239,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     PUSH_TWEETS: function PUSH_TWEETS(state, data) {
       var _state$tweets;
 
-      (_state$tweets = state.tweets).push.apply(_state$tweets, _toConsumableArray(data));
+      (_state$tweets = state.tweets).push.apply(_state$tweets, _toConsumableArray(data.filter(function (tweet) {
+        return !state.tweets.map(function (t) {
+          return t.id;
+        }).includes(tweet.id);
+      })));
     }
   },
   actions: {
