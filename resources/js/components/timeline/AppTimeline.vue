@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="border-b-8 w-full p-4 border-gray-800">
+            <app-tweet-compose/>
+        </div>
         <app-tweet
             v-for="tweet in tweets"
             :key="tweet.id"
