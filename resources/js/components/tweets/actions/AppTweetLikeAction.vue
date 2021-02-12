@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="flex text-center text-base">
+    <a href="#" class="flex text-center text-base" @click.prevent="toggle">
 
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         props: ['tweet'],
@@ -30,6 +30,22 @@
 
             liked(){
                 return this.likes.includes(this.tweet.id)
+            }
+        },
+
+        methods: {
+            ...mapActions({
+                likeTweet: 'likes/likeTweet',
+                unlikeTweet: 'likes/unlikeTweet',
+            }),
+
+            toggle(){
+               if (this.liked){
+                   this.unlikeTweet(this.tweet)
+                   return
+               }
+
+               this.likeTweet(this.tweet)
             }
         }
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Timeline\TimelineController;
 use App\Http\Controllers\Api\Tweets\TweetController;
+use App\Http\Controllers\Api\Tweets\TweetLikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'timeline'], function (){
     Route::get('/', [TimelineController::class, 'index']);
+
     Route::post('/tweets', [TweetController::class, 'store']);
+    Route::post('/tweets/{tweet}/likes', [TweetLikeController::class, 'store']);
+    Route::delete('/tweets/{tweet}/likes', [TweetLikeController::class, 'destroy']);
 });
