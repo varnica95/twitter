@@ -5,12 +5,10 @@
         </div>
 
         <div class="flex-grow">
-            <textarea
-                class="bg-gray-900 w-full outline-none text-gray-300 text-lg resize-none mb-2"
-                autofocus
-                placeholder="What's happening?"
+            <app-tweet-compose-textarea
+                class="whitespace-nowrap"
                 v-model="form.body"
-            ></textarea>
+            />
 
             <div class="flex justify-between">
                 <div>
@@ -28,7 +26,9 @@
 </template>
 
 <script>
+    import AppTweetComposeTextarea from "./AppTweetComposeTextarea";
     export default {
+        components: {AppTweetComposeTextarea},
         data() {
             return {
                 form: {
