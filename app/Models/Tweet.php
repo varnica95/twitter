@@ -23,4 +23,9 @@ class Tweet extends Model
     {
         return $this->hasOne(__CLASS__, 'id', 'original_tweet_id');
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
