@@ -1,3 +1,5 @@
+import { get } from 'lodash'
+
 export default {
     namespaced: true,
 
@@ -18,6 +20,20 @@ export default {
                     return !state.tweets.map((t) => t.id).includes(tweet.id)
                 })
             )
+        },
+
+        SET_LIKES(state, { id, count }){
+            state.tweets = state.tweets.map((t) => {
+                if(t.id === id){
+                    t.likes_count = count
+                }
+
+                if (get(t.original_tweet, 'id') === id){
+                    t.original_tweet.likes_count = count
+                }
+
+                return t
+            })
         }
     },
 
