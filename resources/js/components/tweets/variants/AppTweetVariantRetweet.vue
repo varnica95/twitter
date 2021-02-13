@@ -1,6 +1,7 @@
 <template>
   <div>
       <div class="text-gray-600 font-medium text-xs flex items-center mb-2">
+
           <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -20,7 +21,10 @@
 </template>
 
 <script>
+import AppDropdown from "../../dropdown/AppDropdown";
+import AppDropdownItem from "../../dropdown/AppDropdownItem";
 export default {
+    components: {AppDropdownItem, AppDropdown},
     props: {
         tweet: {
             required: true,
