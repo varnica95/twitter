@@ -33,4 +33,9 @@ class Tweet extends Model
     {
         return $this->hasMany(__CLASS__, 'original_tweet_id');
     }
+
+    public function retweetedTweet()
+    {
+        return $this->hasOne(Tweet::class, 'original_tweet_id', 'id');
+    }
 }
