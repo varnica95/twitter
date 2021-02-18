@@ -1,6 +1,6 @@
 <template>
     <textarea
-        class="bg-gray-900 w-full outline-none text-gray-300 text-lg resize-none mb-2"
+        class="bg-gray-900 w-full break-words outline-none text-gray-300 text-lg resize-none mb-2"
         autofocus
         placeholder="What's happening?"
         @input="input($event); resize($event)"
@@ -35,7 +35,8 @@
                     return
                 }
 
-                e.target.style.whiteSpace = 'nowrap'
+                e.target.style.whiteSpace = 'normal'
+                e.target.style.wordBreak = ' break-word'
 
                 e.target.style.height = `${e.target.scrollHeight}px`
             }

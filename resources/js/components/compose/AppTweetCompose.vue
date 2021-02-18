@@ -14,7 +14,12 @@
                 <div>
                 </div>
 
-                <div>
+                <div class="flex items-center justify-end">
+                    <div>
+                        <app-tweet-compose-limit
+                            :body="form.body"
+                        />
+                    </div>
                     <button
                         type="submit"
                         class="bg-blue-500 text-gray-300 text-center rounded-full leading-none px-4 py-3 font-bold"
@@ -27,8 +32,9 @@
 
 <script>
     import AppTweetComposeTextarea from "./AppTweetComposeTextarea";
+    import AppTweetComposeLimit from "./AppTweetComposeLimit";
     export default {
-        components: {AppTweetComposeTextarea},
+        components: {AppTweetComposeLimit, AppTweetComposeTextarea},
         data() {
             return {
                 form: {
