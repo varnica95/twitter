@@ -11,8 +11,14 @@
             />
 
             <div class="flex justify-between">
-                <div>
-                </div>
+                <ul class="flex items-center">
+                    <li class="mr-4">
+                        <app-tweet-compose-media-button
+                            id="media-compose"
+                            @selected="handleMediaSelected"
+                        />
+                    </li>
+                </ul>
 
                 <div class="flex items-center justify-end">
                     <div>
@@ -33,12 +39,19 @@
 <script>
     import AppTweetComposeTextarea from "./AppTweetComposeTextarea";
     import AppTweetComposeLimit from "./AppTweetComposeLimit";
+    import AppTweetComposeMediaButton from "./media/AppTweetComposeMediaButton";
     export default {
-        components: {AppTweetComposeLimit, AppTweetComposeTextarea},
+        components: {AppTweetComposeMediaButton, AppTweetComposeLimit, AppTweetComposeTextarea},
         data() {
             return {
                 form: {
-                    body: ''
+                    body: '',
+                    media: []
+                },
+
+                media: {
+                    images: [],
+                    video: null
                 }
             }
         },
@@ -48,6 +61,10 @@
                 await axios.post('/api/timeline/tweets', this.form)
 
                 this.form.body = ''
+            },
+
+            handleMediaSelected() {
+
             }
         }
     }
