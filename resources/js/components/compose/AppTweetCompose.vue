@@ -1,15 +1,24 @@
 <template>
     <form action="#" class="flex" @submit.prevent="submit">
-        <div class="mr-3">
-            <img :src="this.user.avatar" class="rounded-full w-12">
-        </div>
 
-        {{ media }}
+        <img :src="this.user.avatar" class="rounded-full w-12 mr-3 h-12">
 
         <div class="flex-grow">
             <app-tweet-compose-textarea
                 class="whitespace-nowrap"
                 v-model="form.body"
+            />
+
+            <app-tweet-compose-image-preview
+                :images="media.images"
+                v-if="media.images.length"
+                @removed="removeImage"
+            />
+
+            <app-tweet-compose-image-preview
+                :video="media.video"
+                v-if="media.video"
+                @removed="removeVideo"
             />
 
             <div class="flex justify-between">
@@ -42,8 +51,11 @@
     import AppTweetComposeTextarea from "./AppTweetComposeTextarea";
     import AppTweetComposeLimit from "./AppTweetComposeLimit";
     import AppTweetComposeMediaButton from "./media/AppTweetComposeMediaButton";
+    import AppTweetComposeImagePreview from "./media/AppTweetComposeImagePreview";
     export default {
-        components: {AppTweetComposeMediaButton, AppTweetComposeLimit, AppTweetComposeTextarea},
+        components: {
+            AppTweetComposeImagePreview,
+            AppTweetComposeMediaButton, AppTweetComposeLimit, AppTweetComposeTextarea},
         data() {
             return {
                 form: {
@@ -71,6 +83,16 @@
                 let response = await axios.get('/api/media/types')
 
                 this.mediaTypes = response.data.data
+            },
+
+            removeImage(image){
+                this.media.images = this.media.images.filter((i) => {
+                    return i !== image
+                })
+            },
+
+            removeVideo(){
+                this.media.video = null
             },
 
             handleMediaSelected(files) {
