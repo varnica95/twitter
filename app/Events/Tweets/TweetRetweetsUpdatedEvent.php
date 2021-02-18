@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TweetLikeUpdatedEvent implements ShouldBroadcast
+class TweetRetweetsUpdatedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -34,7 +34,7 @@ class TweetLikeUpdatedEvent implements ShouldBroadcast
 
     public function broadcastAs()
     {
-        return 'TweetLikeUpdatedEvent';
+        return 'TweetRetweetsUpdatedEvent';
     }
 
     public function broadcastWith()
@@ -42,7 +42,7 @@ class TweetLikeUpdatedEvent implements ShouldBroadcast
         return [
             'id' => $this->tweet->id,
             'user_id' => $this->user->id,
-            'likes_count' => $this->tweet->likes->count()
+            'likes_count' => $this->tweet->retweets->count()
         ];
     }
 

@@ -50,7 +50,7 @@ const app = new Vue({
     store
 });
 
-Echo.channel('tweet.liked')
+Echo.channel('tweets')
     .listen('.TweetLikeUpdatedEvent', (e) => {
         if (e.user_id === User.id){
             store.dispatch('likes/syncLike', e.id)
@@ -61,3 +61,17 @@ Echo.channel('tweet.liked')
             count: e.likes_count
         })
     })
+    .listen('.TweetRetweetsUpdatedEvent', (e) => {
+        if (e.user_id === User.id){
+            store.dispatch('retweets/syncRetweet', e.id)
+        }
+
+        store.commit('timeline/SET_RETWEETS', {
+            id: e.id,
+            count: e.likes_count
+        })
+    })
+    .listen('.TweetDeletedEvent', (e) => {
+        store.commit('timeline/POP_TWEET', e.id)
+    })
+

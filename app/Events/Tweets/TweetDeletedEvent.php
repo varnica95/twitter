@@ -2,8 +2,8 @@
 
 namespace App\Events\Tweets;
 
+use App\Http\Resources\Tweets\TweetResource;
 use App\Models\Tweet;
-use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,44 +12,41 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TweetLikeUpdatedEvent implements ShouldBroadcast
+class TweetDeletedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    protected $user;
 
     protected $tweet;
 
     /**
      * Create a new event instance.
      *
-     * @param User $user
      * @param Tweet $tweet
      */
-    public function __construct(User $user, Tweet $tweet)
+    public function __construct(Tweet $tweet)
     {
-        $this->user = $user;
         $this->tweet = $tweet;
     }
 
     public function broadcastAs()
     {
-        return 'TweetLikeUpdatedEvent';
+        return 'TweetDeletedEvent';
     }
 
+    /**
+     * @return array
+     */
     public function broadcastWith()
     {
         return [
-            'id' => $this->tweet->id,
-            'user_id' => $this->user->id,
-            'likes_count' => $this->tweet->likes->count()
+            'id' => $this->tweet->id
         ];
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
