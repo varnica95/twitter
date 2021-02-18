@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Media\MediaTypesController;
 use App\Http\Controllers\Api\Timeline\TimelineController;
 use App\Http\Controllers\Api\Tweets\TweetController;
 use App\Http\Controllers\Api\Tweets\TweetLikeController;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/media/types', [MediaTypesController::class, 'index']);
 
 Route::group(['prefix' => 'timeline'], function (){
     Route::get('/', [TimelineController::class, 'index']);

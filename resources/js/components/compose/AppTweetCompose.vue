@@ -4,6 +4,8 @@
             <img :src="this.user.avatar" class="rounded-full w-12">
         </div>
 
+        {{ media }}
+
         <div class="flex-grow">
             <app-tweet-compose-textarea
                 class="whitespace-nowrap"
@@ -52,7 +54,9 @@
                 media: {
                     images: [],
                     video: null
-                }
+                },
+
+                mediaTypes: {}
             }
         },
 
@@ -63,9 +67,31 @@
                 this.form.body = ''
             },
 
-            handleMediaSelected() {
+            async getMediaTypes(){
+                let response = await axios.get('/api/media/types')
 
+                this.mediaTypes = response.data.data
+            },
+
+            handleMediaSelected(files) {
+                Array.from(files).slice(0, 4).forEach((file) => {
+                    if(this.mediaTypes.image.includes(file.type)){
+                        this.media.images.push(file)
+                    }
+
+                    if(this.mediaTypes.video.includes(file.type)){
+                        this.media.video = file
+                    }
+                })
+
+                if(this.media.video){
+                    this.media.images = []
+                }
             }
+        },
+
+        mounted() {
+            this.getMediaTypes()
         }
     }
 </script>
